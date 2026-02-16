@@ -11,13 +11,13 @@ Xây dựng được một Store Edge chạy local với Postgres, hỗ trợ ch
   - [ ] Thiết lập basic CI (lint, test)
 
 - [ ] Store Edge – Setup cơ bản
-  - [ ] Viết docker-compose với Postgres + edge-api (FastAPI)
-  - [ ] Tạo migration (Alembic) cho các bảng: `transactions`, `line_items`, `payments`, `local_catalog`, `local_inventory`, `outbox`, `sync_cursors`
+  - [x] Viết docker-compose với Postgres + edge-api (FastAPI)
+  - [x] Tạo migration (Alembic) cho các bảng: `transactions`, `line_items`, `payments`, `local_catalog`, `local_inventory`, `outbox`, `sync_cursors`
   - [ ] Seed data đơn giản cho `local_catalog` và `local_inventory`
 
 - [ ] Store Edge – Checkout API (v1)
-  - [ ] API tạo transaction (DRAFT)
-  - [ ] API thêm item theo barcode
+  - [x] API tạo transaction (DRAFT)
+  - [x] API thêm item theo barcode
   - [ ] API tính tổng (subtotal, tax, total)
   - [ ] API tạo payment (QR dummy – sinh ra chuỗi JSON giả, chưa call provider thật)
   - [ ] API finalize transaction: chuyển sang PAID, trừ tồn kho

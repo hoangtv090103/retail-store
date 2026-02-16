@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:16
+    container_name: store_edge_db
+    environment:
+      POSTGRES_DB: edge_db
+      POSTGRES_USER: edge
+      POSTGRES_PASSWORD: edge
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U edge -d edge_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    store-edge:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: store_edge_api
+      env_file:
+        - .env
+      depends_on:
+        db:
+          condition: service_healthy
+      ports:
+        - "8000:8000"
+      volumes:
+      - .:/app
+      working_dir: /app
+      command: >
+        bash -c "
+        alembic upgrade head &&
+        uvicorn app.main:app --host 0.0.0.0 --port 8000
+        "
+volumes:
+  postgres_data:
